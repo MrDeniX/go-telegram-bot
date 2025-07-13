@@ -7,6 +7,7 @@ import (
     "net/http"
     "os"
     "strings"
+    "github.com/joho/godotenv"
 
     tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
@@ -20,6 +21,12 @@ var userState = make(map[int64]string)
 var sessions = make(map[int64]*UserSession)
 
 func main() {
+    
+    err := godotenv.Load()
+    if err != nil {
+        log.Println("Warning: Не удалось загрузить .env файл")
+    }
+
     bot, err := tgbotapi.NewBotAPI(os.Getenv("TELEGRAM_TOKEN"))
     if err != nil {
         log.Panic(err)
